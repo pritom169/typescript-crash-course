@@ -59,6 +59,34 @@ If we want to debug a TS code we need to make some adjustments.
 - We have to go to the launch.json file in VSCode and add the line
 `"preLaunchTask": "tsc: build - resources/tsconfig.json"`
 
+# Foundations
+## Built in Types
+JS has the following primitive types:
+- number
+- string
+- boolean
+- null
+- undefined
+- object
 
+TS extends the primitive types even more:
+- any
+- unknown
+- never
+- enum
+- tuple
 
+In TS we can type
+```typescript
+let sales: number = 123_456_789;
+let course: string = 'TypeScript';
+let is_published: boolean = true;
+```
 
+However, we can remove the types using
+```typescript
+let sales = 123_456_789;
+let course = 'TypeScript';
+let is_published = true;
+```
+In this case, TS automatically infers the type as number, string and boolean.
