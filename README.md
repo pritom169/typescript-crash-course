@@ -185,3 +185,103 @@ Now the generated code will be much more simpler
 let mySize = 2;
 console.log(mySize);
 ```
+
+## Function
+Let's write some function code.
+```typescript
+function calculateTax(income: number) {
+    
+}
+```
+
+The function calculate does not have any return value. Now let's return some value
+```typescript
+function calculateTax(income: number) {
+    return 2;
+}
+```
+
+If we see in the VS code, TS compiler inferred the return type as number. However,
+the best practice is to always annotate the return types. It has the following benefits
+- If we are designing an API, it becomes much better a team member about which value
+it should return.
+- In addition to that, if we return wrong value type, `string` instead of `number`, it will
+show an error sign.
+
+Here is a full demonstration how a function with parameters should be written.
+```typescript
+function calculateTax(income: number): number {
+    return 2;
+}
+```
+
+However, there is one issue. The issue is we are not using `income` variable but there is
+no error sign given. In oder to resolve it we have to go to tsconfig.json file and explicitly
+turn on the settings `"noUnusedParameters": true`. Now let's go into another direction.
+
+```typescript
+function calculateTax(income: number): number {
+    let x;
+    if (income < 50_000)
+        return income * 1.2;
+}
+```
+
+There is one error in the function mentioned above, if the income is less than 50000, then we
+it will return undefined value. In order our TS compiler to detect the error before running
+the TS code we have to explicitly uncomment the line `"noImplicitReturns": true,`
+
+```typescript
+function calculateTax(income: number): number {
+    let x;
+    if (income < 50_000)
+        return income * 1.2;
+     return income * 1.3;
+}
+```
+
+As we can see, inside the function locally x has been initiated, but it has never been used. We also
+don't see any error warning sign till now. In order to resolve this, we  have to explicitly
+uncomment the line in `"noUnusedLocals": true`.
+
+Let's go one step further.
+
+```typescript
+function calculateTax(income: number, taxYear: number): number {
+    if (taxYear < 2022)
+        return income * 1.2
+    return income * 1.3 
+}
+
+calculateTax(40000, 2022)
+calculateTax(40000, 2022, "Hello There")
+```
+
+In JS the last line would be valid, but in TS it would not be a valid function call as it will
+say the function is asking for two parameter, and it is giving three.
+ 
+```typescript
+function calculateTax(income: number, taxYear?: number): number {
+    if ((taxYear || 2022) < 2022)
+        return income * 1.2
+    return income * 1.3 
+}
+
+calculateTax(40000)
+```
+
+Now we can just pass the income not the taxYear. We can do that by making taxYear optional.
+Since taxYear is optional and we also have to take care the option type if in the if checking by
+`if ((taxYear || 2022) < 2022)`.
+
+```typescript
+function calculateTax(income: number, taxYear = 2022): number {
+    if (taxYear < 2022)
+        return income * 1.2
+    return income * 1.3 
+}
+
+calculateTax(40000)
+```
+
+We can simply remove all the hassles just by giving a default value in the parameter for year.
