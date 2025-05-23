@@ -52,6 +52,13 @@ We can simply create `tsconfig.json` file using the terminal command `tsc --init
 ```
 We can simply run the configured `tsconfig.json` file using `tsc` command
 
+## Debugging TS code
+If we want to debug a TS code we need to make some adjustments.
+
+- We have to go the `tsconfig.json` and uncomment `"sourceMap": true`.
+- We have to go to the launch.json file in VSCode and add the line
+`"preLaunchTask": "tsc: build - resources/tsconfig.json"`
+
 
 
 
