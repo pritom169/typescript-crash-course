@@ -139,3 +139,49 @@ user.push(1);
 
 // The best practice for tuples is to restrict them upto two values.
 ```
+
+## Enums
+```typescript
+//PascalCase
+enum Size {Small, Medium, Large};   // Under the hood typescript automatically assigns 1,2,3 to
+let mySize: Size = Size.Medium;     // Small, Medium and Large respectively.
+console.log(mySize);
+
+// If we want to assign custom values, we can simply do it by
+enum Size1 {Small = 5, Medium = 6, Large = 7};
+```
+
+Now let's convert the first block of TS code to JS code by going to Terminal by typing
+
+```shell
+tsc
+tsc node dist/index.js
+```
+
+If we do that, we will see the following code being generated
+```javascript
+var Size;
+(function (Size) {
+    Size[Size["Small"] = 1] = "Small";
+    Size[Size["Medium"] = 2] = "Medium";
+    Size[Size["Large"] = 3] = "Large";
+})(Size || (Size = {}));
+;
+let mySize = Size.Medium;
+console.log(mySize);
+```
+
+The generated JS code is quite lengthy and verbose but we don't have to worry about it for the
+time being. One quick fix we can implement is by adding `const`. Hence, the final TS code will be
+```typescript
+const enum Size {Small, Medium, Large};
+let mySize: Size = Size.Medium;
+console.log(mySize);
+```
+
+Now the generated code will be much more simpler
+```javascript
+"use strict";
+let mySize = 2;
+console.log(mySize);
+```
