@@ -285,3 +285,46 @@ calculateTax(40000)
 ```
 
 We can simply remove all the hassles just by giving a default value in the parameter for year.
+
+## Objects
+```javascript
+let employee = { id: 1 };
+employee.name = 'Mosh';
+```
+
+The above code is completely valid in JS however that will show error in TS as it will give an error
+saying the `Property 'name' does not exist on type '{ id: number; }'.`
+
+A very simple JS object looks like this one
+```typescript
+let employee: {
+    id: number,
+    name: string,
+} = { id: 1, name: "Pritom" };
+```
+
+There is a problem with this object, I can change the id which should not be the case. So let's make the id
+read only
+```typescript
+let employee: {
+    readonly id: number,
+    name: string,
+} = { id: 1, name: "Pritom"}
+```
+
+Now let's say every employee object should have a default function. Inside the object the structure of function
+needs to be there.
+
+```typescript
+let employee: {
+    readonly id: number,
+    name: String,
+    retire: (date: Date) => void
+} = { 
+    id: 1, 
+    name: "Pritom",
+    retire: (date: Date) => {
+        console.log(date)
+    }
+}
+```
