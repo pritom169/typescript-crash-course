@@ -90,3 +90,16 @@ let course = 'TypeScript';
 let is_published = true;
 ```
 In this case, TS automatically infers the type as number, string and boolean.
+
+## Any
+```typescript
+let level;
+level = 1;
+level = 'a';
+```
+
+If we look at the code, when we declared variable `level` we see it has been
+assigned `Any` type. Then we have assigned `1` and `a` to it which introduces type conflict.
+However, the whole purpose of TypeScript is to maintain type safety, and hence we should not
+write such codes as best practise.
+
