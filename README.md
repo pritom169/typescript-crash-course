@@ -32,12 +32,25 @@ Let's write some code into TS file. Name the file as index.ts
 let age: number = 20;
 ```
 
-We can run this file using tsc index.ts in terminal and it will generate a file named `index.js`. 
+We can run this file using `tsc index.ts` in terminal and it will generate a file named `index.js`. 
 The content of the file will be 
 
 ```javascript
 var age = 20;
 ```
+
+## Configuring TS file
+We can simply create `tsconfig.json` file using the terminal command `tsc --init`. When we go inside
+`tsconfig.json` file we will see many settings. Some of the settings that needs to be changed are
+```json
+{
+  "target": "es2016", // es2016 is supported by most of the modern browser
+  "module": "commonjs", // Let's keep this as it is
+  "outDir": "./dist", // all the generated JS files will be stored in the `dist` directory
+  "noEmitOnError": true // If there are some error in the TS file, no JS code will be generated
+}
+```
+We can simply run the configured `tsconfig.json` file using `tsc` command
 
 
 
