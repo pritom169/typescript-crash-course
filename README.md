@@ -103,3 +103,24 @@ assigned `Any` type. Then we have assigned `1` and `a` to it which introduces ty
 However, the whole purpose of TypeScript is to maintain type safety, and hence we should not
 write such codes as best practise.
 
+## Array
+```javascript
+let numbers = [1, 2, "Ball"];
+```
+
+In JS in a same array there could be elements with multiple primitive types.
+
+```typescript
+let numbers: number = [1, 2, 3];
+let numbers1: number = [1, 2, "Ball"]; // It will show an error as the last element is not number
+let numbers2 = [1, 2, 3]; // The TS compiler will assume that it's a number array
+
+// The following written code is also valid but not a good practise as it's not type safe
+let numbers3 = [];
+numbers2[0] = 1;
+numbers2[1] = '1';
+
+// In TS if we want to declare an empty array, it is a best practice to declare with a variable
+// type. 
+let numbers4 : number[] = [];
+```
