@@ -124,3 +124,18 @@ numbers2[1] = '1';
 // type. 
 let numbers4 : number[] = [];
 ```
+
+## Tuples
+```typescript
+let user: [number, string] = [1, 'Pritom'];
+
+// For typesafety one can not assign a different type of variable other than
+// number and string respectively.
+
+// If we compile the TS we will see under the hood TS are essentially JS arrays.
+
+// One of the gaps of TS arrays are push in Tuples. 
+user.push(1);
+
+// The best practice for tuples is to restrict them upto two values.
+```
