@@ -484,3 +484,13 @@ function greetUser(name?: string) :string {
     return `Hello, ${displayName}!`;
 }
 ```
+
+## Type Assertions
+Type assertion allows the developer to treat a value as a specific when when the developer knows more about
+the type than TS can infer. There are two ways to do Type assertions: `<>` or `as`
+
+```typescript
+const canvas = document.getElementById('myCanvas') as HTMLCanvasElement;
+
+// Be careful what you assert as assertions can be dangerous!
+```
