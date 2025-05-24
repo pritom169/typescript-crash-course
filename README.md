@@ -372,3 +372,22 @@ kgToLbs('10kg');
 ```
 
 ## Intersection Types
+In an intersection type a variable can be both types at the same time. When a variable is an Intersection of
+two types it should implement two types.
+
+```typescript
+type Draggable = {
+    drag: () => void
+}
+
+type Resizable = {
+    resize: () => void
+}
+
+type UIWidget = Draggable & Resizable;
+
+let textBox: UIWidget = {
+    drag: () => {},
+    resize: () => {}
+}
+```
