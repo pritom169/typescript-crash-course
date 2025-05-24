@@ -474,3 +474,13 @@ let customer = getCustomer(0)
 // Optional property access operator
 console.log(customer?.birthday)
 ```
+
+## Nullish Coalescing Operator
+When we are calling an API, it can return no value or the value we are not expecting.
+
+```typescript
+function greetUser(name?: string) :string {
+    const displayName : string = name ?? "Guest";
+    return `Hello, ${displayName}!`;
+}
+```
