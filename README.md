@@ -391,3 +391,16 @@ let textBox: UIWidget = {
     resize: () => {}
 }
 ```
+
+## Literal types
+Literal types limits the choice of what we can assign to a variable. For example a `number` can only be 50 or 100.
+The code will clear all the confusion
+
+```typescript
+type Quantity = 50 | 100;
+let quantity: Quantity = 100;
+
+type Metric = 'cm' | 'inch';
+```
+
+## 
