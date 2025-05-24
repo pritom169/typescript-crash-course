@@ -494,3 +494,29 @@ const canvas = document.getElementById('myCanvas') as HTMLCanvasElement;
 
 // Be careful what you assert as assertions can be dangerous!
 ```
+
+## The unknown Type
+`unknown` is the type-safe counterpart to `any`. It represents any value but requires type checking before you
+can do anything with it. It's the top type in TypeScript's hierarchy.
+
+```typescript
+let userInput: unknown;
+
+userInput = 5;
+userInput = "hello";
+userInput = true;
+
+// console.log(userInput.toUpperCase());
+
+function processValue(value: unknown){
+    if (typeof value == "number"){
+        return value * 2
+    };
+
+    if (value instanceof Date) {
+        return value.getTime();
+    }
+
+    return "Unknown type";
+}
+```
