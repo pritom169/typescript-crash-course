@@ -328,3 +328,47 @@ let employee: {
     }
 }
 ```
+
+# Advanced Types in TypeScript
+## Generics
+There are many problems with the above object
+- If we want to create another employee object we have to recreate the whole shape
+- The other employee can have different properties which is not possible to support via this shape
+- Last but not the least, the whole structure of the code makes it look verbose
+
+The whole code will change be changed into something like this
+
+```typescript
+type Employee = {
+    readonly id: number,
+    name: string,
+    retire: (date: Date) => void
+}
+
+let employee: Employee = { 
+    id: 1, 
+    name: "Pritom",
+    retire: (date: Date) => {
+        console.log(date)
+    }
+}
+```
+
+## Union Types
+When we use Union type we can use two variables. An examples of Union type is given 
+
+```typescript
+function kgToLbs(weight: number | string): number {
+    //Narrowing
+    if (typeof weight === 'number'){
+        return weight * 2.2;
+    } else {
+        return parseInt(weight) * 2.2;
+    }
+}
+
+kgToLbs(10);
+kgToLbs('10kg');
+```
+
+## Intersection Types
