@@ -520,3 +520,55 @@ function processValue(value: unknown){
     return "Unknown type";
 }
 ```
+
+## never type
+`never` represents values that never occur. It's the bottom type in TS's type hierarchy and used for functions
+that never return normally (throws errors or infinite loops) and for exhaustive type checking
+
+```typescript
+// Functions that never return
+function throwError(message: string): never {
+  throw new Error(message);
+  // No return statement - function never completes normally
+}
+
+function infiniteLoop(): never {
+  while (true) {
+    console.log("This runs forever");
+  }
+}
+
+// Exhaustive checking with never
+type Shape = "circle" | "square" | "triangle";
+
+function getArea(shape: Shape): number {
+  switch (shape) {
+    case "circle":
+      return Math.PI * 5 * 5;
+    case "square":
+      return 5 * 5;
+    case "triangle":
+      return (5 * 5) / 2;
+    default:
+      // If we add a new shape type and forget to handle it,
+      // TypeScript will error here
+      const exhaustiveCheck: never = shape;
+      throw new Error(`Unhandled shape: ${exhaustiveCheck}`);
+  }
+}
+
+// Never in conditional types
+type NonNullable<T> = T extends null | undefined ? never : T;
+
+// Variables can't actually be never (except through type narrowing)
+function example(x: string | number) {
+  if (typeof x === "string") {
+    // x is string here
+  } else if (typeof x === "number") {
+    // x is number here
+  } else {
+    // x is never here - all possibilities exhausted
+    const shouldNeverReach: never = x;
+  }
+}
+```
