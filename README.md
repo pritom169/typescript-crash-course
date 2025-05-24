@@ -427,3 +427,50 @@ function greet(name: string | null | undefined) {
 ```
 
 In order to pass a `null` or `undefined` to the function we have to use the Union operator
+
+## Optional Chaining
+Let's look at this TS code.
+```typescript
+type Customer = {
+    birthday: Date
+};
+
+// Let's write a function that will take 
+function getCustomer(id: number): Customer | null {
+    return (id === 0) ? null : {birthday : new Date()};
+}
+
+let customer = getCustomer(0);
+console.log(customer.birthday)
+```
+
+It shows error and underlines the customer. As customer can be null hence it is showing an error. However, it can 
+be resolved.
+
+```typescript
+if (customer !== null)
+    console.log(customer.birthday)
+```
+
+Now let's go one step further.
+```typescript
+function getCustomer(id: number): Customer | null | undefined {
+    return (id === 0) ? null : {birthday : new Date()};
+}
+
+let customer = getCustomer(0)
+if (customer !== null && customer !== undefined)
+    console.log(customer.birthday)
+```
+
+However, we can do better.
+
+```typescript
+function getCustomer(id: number): Customer | null | undefined {
+    return (id === 0) ? null : {birthday : new Date()};
+}
+
+let customer = getCustomer(0)
+// Optional property access operator
+console.log(customer?.birthday)
+```
