@@ -403,4 +403,27 @@ let quantity: Quantity = 100;
 type Metric = 'cm' | 'inch';
 ```
 
-## 
+## Nullable Types
+Let look at this JS code.
+
+```javascript
+function greet(name: string){
+    console.log(name.toUpperCase())
+}
+
+greet(null);
+```
+
+The JS code is valid. However, there is one problem. When we pass null, the `.toUpperCase()` becomes invalid.
+That will return exception. As a result, TS compiler by default stops us from using null or undefined values.
+
+```typescript
+function greet(name: string | null | undefined) {
+    if (name)
+        console.log(name.toUpperCase())
+    else
+        console.log('Hola!')
+}
+```
+
+In order to pass a `null` or `undefined` to the function we have to use the Union operator
