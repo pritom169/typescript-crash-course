@@ -694,3 +694,21 @@ console.log(car3.getCarInfo()); // "Ford Mustang (2022)"
 - Optional properties might be `undefined`, so always check before using
 - Read-only ensures data integrity for properties that shouldn't change
 - Optional properties provide flexibility in object creation
+
+
+### Access Control Keywords
+TypeScript provides three access modifiers that control the visibility of class members:
+
+#### Public (Default)
+- Accessible from anywhere - inside the class, outside the class, and in subclasses
+- If no modifier is specified, the member is public by default
+
+#### Private
+- Only accessible within the same class where it's defined
+- Not accessible from outside the class or even in subclasses
+- Helps with encapsulation - hiding internal implementation details
+
+#### Protected
+- Accessible within the class and its subclasses
+- Not accessible from outside the class hierarchy
+- Useful for sharing functionality between parent and child classes while keeping it hidden from external code
