@@ -628,4 +628,69 @@ person1.haveBirthday(); // "Hello, I'm Bob and I'm 25 years old.
 - Each object has its own copy of the properties but shares the methods
 
 ## Read-only and Optional Properties
+- The `readonly` modifier prevents a property from being changed after it's initialized. This is 
+useful for properties that should remain constant throughout an object's lifetime.
+- The `?` modifier makes a property optional, meaning it may or may not be present 
+when creating an object.
 
+```typescript
+class Car {
+    readonly brand: string;        // Cannot be changed after initialization
+    readonly vin: string;          // Vehicle Identification Number - should never change
+    model: string;                 // Can be changed
+    year?: number;                 // Optional - might not be specified
+    color?: string;                // Optional property
+    
+    constructor(brand: string, vin: string, model: string, year?: number, color?: string) {
+        this.brand = brand;
+        this.vin = vin;
+        this.model = model;
+        this.year = year;    // Could be undefined
+        this.color = color;  // Could be undefined
+    }
+    
+    // Method that can modify mutable properties
+    updateModel(newModel: string): void {
+        this.model = newModel;     // ✓ OK - not readonly
+    }
+    
+    // Method that attempts to modify readonly property
+    // changeBrand(newBrand: string): void {
+        // this.brand = newBrand;  // ✗ Error: Cannot assign to 'brand' because it is read-only
+    // }
+    
+    // Method to safely access optional properties
+    getCarInfo(): string {
+        let info = `${this.brand} ${this.model}`;
+        
+        // Check if optional properties exist before using them
+        if (this.year !== undefined) {
+            info += ` (${this.year})`;
+        }
+        
+        if (this.color) {  // Truthy check works for optional properties
+            info += ` in ${this.color}`;
+        }
+        
+        return info;
+    }
+}
+
+// Creating instances with different combinations of optional properties
+const car1 = new Car("Toyota", "1234567890", "Camry", 2023, "Blue");
+const car2 = new Car("Honda", "0987654321", "Civic"); // No year or color
+const car3 = new Car("Ford", "1122334455", "Mustang", 2022); // No color
+
+console.log(car1.getCarInfo()); // "Toyota Camry (2023) in Blue"
+console.log(car2.getCarInfo()); // "Honda Civic"
+console.log(car3.getCarInfo()); // "Ford Mustang (2022)"
+
+// This would cause a compile-time error:
+// car1.brand = "Lexus"; // Error: Cannot assign to 'brand' because it is read-only
+```
+
+**Key Points:**
+- `readonly` properties can only be assigned in the constructor or at declaration
+- Optional properties might be `undefined`, so always check before using
+- Read-only ensures data integrity for properties that shouldn't change
+- Optional properties provide flexibility in object creation
