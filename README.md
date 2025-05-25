@@ -927,6 +927,32 @@ console.log(user.name); // “Getting name” → “Bob”
 - Read-only properties can have only getters (no setters)
 - Getters and setters provide encapsulation while maintaining a property-like interface
 
+## Index Signatures
+Index signatures allow you to define types for properties that you don't know about ahead of 
+time. They're useful when you need to create objects with dynamic property names or when working 
+with dictionary-like structures.
+
+```typescript
+interface StringMap {
+  [key: string]: string;
+}
+
+const labels: StringMap = {
+  foo: "Foo",
+  bar: "Bar",
+};
+labels.baz = "Baz";
+```
+
+**Key Points:**
+- Index signatures allow dynamic property access with type safety
+- You can mix index signatures with explicit properties
+- The key type can be `string`, `number`, or `symbol`
+- All explicitly declared properties must be compatible with the index signature type
+- Useful for dictionaries, configuration objects, and dynamic data structures
+- Provides flexibility while maintaining some type safety
+
+
 
 
 
