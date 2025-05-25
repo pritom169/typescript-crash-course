@@ -1148,3 +1148,23 @@ class GoogleCalendar implements Calendar {
     
 }
 ```
+
+# Generics
+Let's look at the code. 
+
+```typescript
+class KeyValuePair{
+    constructor(public key: number, public value: string) {}
+}
+
+// What if we need another class where key can be string
+class StringKeyValuePair {
+    constructor(public key: string, public value: string) {}
+}
+
+// Now another problem arises. What is we need another class where the
+// value can be number.
+```
+
+We have to find a solution where there can be a generic solution to this problem. That's where
+generic comes into play.
