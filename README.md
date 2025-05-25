@@ -896,4 +896,37 @@ console.log(course.getCourseInfo());
 - You can combine parameter properties with traditional property declarations
 - Default values can be specified for parameter properties
 
+## Getters and Setters
+```typescript
+class User {
+  private _name = "";
+
+  // called when you read `user.name`
+  get name(): string {
+    console.log("Getting name");
+    return this._name;
+  }
+
+  // called when you assign `user.name = "Alice"`
+  set name(v: string) {
+    console.log("Setting name");
+    if (v.length < 2) throw new Error("Name too short");
+    this._name = v;
+  }
+}
+
+const user = new User();
+user.name = "Bob";    // “Setting name”
+console.log(user.name); // “Getting name” → “Bob”
+```
+
+**Key Points:**
+- Getters are accessed like properties but can execute code
+- Setters allow validation and transformation of incoming values
+- Computed properties can derive values from other properties
+- Read-only properties can have only getters (no setters)
+- Getters and setters provide encapsulation while maintaining a property-like interface
+
+
+
 
