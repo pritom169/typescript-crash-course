@@ -1037,5 +1037,84 @@ new Cat().speak(); // “Meow”
 - **Super Calls**: Child methods can call parent methods using `super.methodName()`
 - **Complete Replacement**: Child method completely replaces parent behavior (unless calling super)
 
+## Polymorphism
+`Poly -> Many` and `Morphism -> form`
 
+```typescript
+interface Drawable {
+    draw(): void
+}
 
+class Circle implements Drawable {
+    constructor(public radius: number) {}
+    draw() {
+        console.log(`Drawing a circle of radius ${this.radius}`)
+    }
+}
+
+class Square implements Drawable {
+    constructor(public side:number) {}
+    draw() {
+        console.log(`Drawing a square of size ${this.side}`)
+    }
+}
+
+function renderAll(shapes: Drawable[]){
+    shapes.forEach(shapes => shapes.draw())
+}
+
+const shapes: Drawable[] = [
+    new Circle(5),
+    new Square(10)
+]
+
+renderAll(shapes);
+```
+
+## Private vs. Protected
+- private: accessible only within the defining class
+- protected: accessible in the class and its subclasses
+
+```typescript
+class Base {
+  private secret = 123;
+  protected hint = "peek";
+
+  show() {
+    console.log(this.secret); // OK
+  }
+}
+
+class Sub extends Base {
+  demo() {
+    // console.log(this.secret); // ❌ private → Error
+    console.log(this.hint);      // ✅ protected → OK
+  }
+}
+```
+
+## Abstract Classes and Methods
+An abstract class is declared using the abstract keyword and can contain both concrete 
+implementations and abstract methods that must be implemented by subclasses. You cannot create 
+instances of abstract classes directly - they exist solely to be extended by other classes.
+
+```typescript
+abstract class Shape {
+    constructor(public color: string) {}
+
+    abstract render(): void
+}
+
+class Circle extends Shape {
+    constructor(public radius: number, color: string){
+        super(color);
+    }
+
+    override render(): void {
+        console.log('Rendering a circle!')
+    }
+}
+
+let shape = new Circle(10, 'red');
+shape.render();
+```
