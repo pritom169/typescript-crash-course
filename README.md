@@ -572,3 +572,14 @@ function example(x: string | number) {
   }
 }
 ```
+
+# Object-Oriented Programming (OOP)
+OOP is a programming paradigm based on the concept of "objects" which contain:
+- Data (properties/attributes)
+- Code (methods/functions)
+
+Key principles:
+1. Encapsulation - Bundling data and methods together
+2. Inheritance - Creating new classes based on existing ones
+3. Polymorphism - Same interface, different implementations
+4. Abstraction - Hiding complex implementation details
