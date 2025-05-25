@@ -574,6 +574,7 @@ function example(x: string | number) {
 ```
 
 # Object-Oriented Programming (OOP)
+## Definition
 OOP is a programming paradigm based on the concept of "objects" which contain:
 - Data (properties/attributes)
 - Code (methods/functions)
@@ -583,3 +584,48 @@ Key principles:
 2. Inheritance - Creating new classes based on existing ones
 3. Polymorphism - Same interface, different implementations
 4. Abstraction - Hiding complex implementation details
+
+## Classes and Objects
+
+```typescript
+class Person {
+    name: string;
+    age: number;
+
+    // Constructor - Special method called when creating new objects
+    constructor(name: string, age: number) {
+        this.name = name;
+        this.age = age;
+    }
+
+    //Method (behavior)
+    greet(): string {
+        return `Hello, I'm ${this.name} and I'm ${this.age} years old.`;
+    }
+
+    //Method that modifies state
+    haveBirthday(): void {
+        this.age ++;
+        console.log(`Happy birthday! ${this.name} is now ${this.age} years old.`);
+    }
+}
+
+// Creating Objects
+const person1 = new Person("Alice", 30); 
+const person2 = new Person("Bob", 25); 
+
+// Using the objects
+console.log(person1.greet()); // "Hello, I'm Alice and I'm 30 years old.
+console.log(person2.greet()); // "Hello, I'm Bob and I'm 25 years old.
+
+person1.haveBirthday(); // "Hello, I'm Bob and I'm 25 years old.
+```
+
+**Key Points:**
+- Classes define the structure; objects are instances with actual data
+- The `constructor` is called automatically when using `new`
+- `this` keyword refers to the current instance
+- Each object has its own copy of the properties but shares the methods
+
+## Read-only and Optional Properties
+
