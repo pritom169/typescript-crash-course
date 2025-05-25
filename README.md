@@ -1168,3 +1168,50 @@ class StringKeyValuePair {
 
 We have to find a solution where there can be a generic solution to this problem. That's where
 generic comes into play.
+
+## Generic Class
+We declare generics by just by adding the generic type next to the class name.
+
+```typescript
+class KeyValuePair<K, V> {
+    constructor(public key: K, public value: V) {}
+}
+
+let pair = new KeyValuePair('1', 'a')
+```
+
+## Generic Functions
+```typescript
+function wrapInArray(value: number) {
+    return [value]
+}
+
+let numbers = wrapInArray('1')
+```
+
+This function shows an error as the function is expecting a number, but we are passing a string.
+What if we want to design a function which can take any type of value and can wrap it in an array.
+That is where generic functions comes into play.
+
+```typescript
+function wrapInArray<T>(value: T) {
+    return [value]
+}
+
+let numbers1 = wrapInArray('1')
+let numbers2 = wrapInArray(2)
+```
+
+Inside the class we have to remove the `function` keyword.
+
+```typescript
+class ArrayUtils {
+    wrapInArray<T>(value: T) {
+        return [value];
+    }
+}
+
+// Inside the class when we write 
+let utils = new ArrayUtils()
+let numbers = utils.wrapInArray(1)
+```
