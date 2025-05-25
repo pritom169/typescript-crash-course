@@ -952,6 +952,65 @@ labels.baz = "Baz";
 - Useful for dictionaries, configuration objects, and dynamic data structures
 - Provides flexibility while maintaining some type safety
 
+## Static Members
+Static members belong to the class itself rather than to any instance of the class. 
+They can be accessed without creating an object and are shared across all instances. Static 
+members are useful for utility functions, constants, and class-level data.
+
+```typescript
+class Logger {
+  static count = 0;
+
+  constructor() {
+    Logger.count++;
+  }
+
+  static reset() {
+    Logger.count = 0;
+  }
+}
+
+new Logger();
+console.log(Logger.count); // 1
+Logger.reset();
+```
+
+**Key Points:**
+- Static members belong to the class, not instances
+- Access using `ClassName.memberName`, not instance references
+- Static methods cannot access instance members directly
+- Useful for utility functions, constants, counters, and factory patterns
+- Static properties are shared across all instances
+- Common patterns: Singleton, Factory, Registry, and Utility classes
+
+## Inheritance
+Inheritance is a fundamental OOP concept that allows you to create new classes based on existing classes. 
+The new class (child/derived/subclass) inherits properties and methods from the existing class 
+(parent/base/superclass), and can add its own features or modify inherited behavior.
+
+```typescript
+class Animal {
+    constructor (public name: string) {}
+    move() { console.log(`${this.name} moves`)}
+}
+
+class Dog extends Animal {
+    bark() {console.log("Woof!")}
+}
+
+const d = new Dog("Fido")
+d.move()
+d.bark()
+```
+
+**Key Points:**
+- Use `extends` keyword to create inheritance relationships
+- Child classes must call `super()` in their constructor before using `this`
+- `super.methodName()` calls the parent class method
+- Child classes inherit all public and protected members from parent
+- Private members are not inherited (not accessible in child classes)
+- Inheritance creates an "is-a" relationship (Dog is-a Animal)
+- TypeScript supports single inheritance (one parent class per child)
 
 
 
