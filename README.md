@@ -1118,3 +1118,33 @@ class Circle extends Shape {
 let shape = new Circle(10, 'red');
 shape.render();
 ```
+
+## Interfaces
+We have seen some abstract classes. But when we just need to implement some basic variables and
+methods, without adding distinct functionality to the class we can use Interfaces.
+
+```typescript
+interface Calendar {
+    name: string,
+    addEvent(): void,
+    removeEvent(): void
+}
+
+interface CloudCalendar extends Calendar {
+    sync(): void;
+}
+
+class GoogleCalendar implements Calendar {
+    constructor(public name: string){
+
+    }
+
+    addEvent(): void {
+        throw new Error("Method not implemented.");
+    }
+    removeEvent(): void {
+        throw new Error("Method not implemented.");
+    }
+    
+}
+```
