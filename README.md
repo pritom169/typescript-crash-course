@@ -1012,6 +1012,30 @@ d.bark()
 - Inheritance creates an "is-a" relationship (Dog is-a Animal)
 - TypeScript supports single inheritance (one parent class per child)
 
+## Method Overriding
+Method overriding occurs when a child class provides a specific implementation of a method that 
+is already defined in its parent class. The child class method "overrides" the parent class 
+method, replacing its behavior while maintaining the same method signature.
+
+```typescript
+class Animal {
+  speak() { console.log("..."); }
+}
+
+class Cat extends Animal {
+  override speak() {
+    console.log("Meow");
+  }
+}
+
+new Cat().speak(); // “Meow”
+```
+
+### Key Concepts:
+- **Same Signature**: Method name, parameters, and return type must match
+- **Runtime Polymorphism**: The actual method called depends on the object's type at runtime
+- **Super Calls**: Child methods can call parent methods using `super.methodName()`
+- **Complete Replacement**: Child method completely replaces parent behavior (unless calling super)
 
 
 
