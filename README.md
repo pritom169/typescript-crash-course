@@ -789,3 +789,111 @@ console.log(account.getAccountSummary()); // ✓ OK
 // console.log(account.bankName);       // ✗ Error: Property 'bankName' is protected
 // console.log(account.getBalance());   // ✗ Error: Method is protected
 ```
+
+## Parameter Properties
+Parameter properties are a TypeScript shorthand that automatically creates and initializes class 
+properties from constructor parameters. Instead of declaring properties separately and then assigning 
+them in the constructor, you can do both in one step.
+
+```typescript
+// Traditional way (verbose)
+class StudentTraditional {
+    public name: string;
+    private studentId: number;
+    protected grade: string;
+    
+    constructor(name: string, studentId: number, grade: string) {
+        this.name = name;
+        this.studentId = studentId;
+        this.grade = grade;
+    }
+}
+
+// Parameter properties way (concise)
+class Student {
+    constructor(
+        public name: string,           // Creates: public name: string
+        private studentId: number,     // Creates: private studentId: number
+        protected grade: string,       // Creates: protected grade: string
+        public readonly school: string, // Creates: public readonly school: string
+        public age?: number           // Creates: public age?: number (optional)
+    ) {
+        // Constructor body can contain additional logic if needed
+        console.log(`New student created: ${this.name}`);
+    }
+    
+    // Methods can access all the parameter properties
+    getStudentInfo(): string {
+        return `${this.name} (ID: ${this.studentId}, Grade: ${this.grade})`;
+    }
+    
+    // Private property is accessible within the class
+    //private getInternalId(): number {
+    //    return this.studentId;
+    // }
+    
+    // Method that shows how to handle optional properties
+    getFullInfo(): string {
+        let info = this.getStudentInfo() + ` at ${this.school}`;
+        if (this.age !== undefined) {
+            info += `, Age: ${this.age}`;
+        }
+        return info;
+    }
+}
+
+// Creating instances
+const student1 = new Student("Alice", 12345, "A", "MIT", 20);
+const student2 = new Student("Bob", 67890, "B", "Harvard"); // No age specified
+
+// Accessing public properties
+console.log(student1.name);     // ✓ "Alice"
+console.log(student1.school);   // ✓ "MIT"
+
+// Cannot access private/protected properties
+// console.log(student1.studentId); // ✗ Error: Property 'studentId' is private
+// console.log(student1.grade);     // ✗ Error: Property 'grade' is protected
+
+// Cannot modify readonly property
+// student1.school = "Stanford";    // ✗ Error: Cannot assign to 'school' because it is read-only
+
+console.log(student1.getFullInfo()); // "Alice (ID: 12345, Grade: A) at MIT, Age: 20"
+console.log(student2.getFullInfo()); // "Bob (ID: 67890, Grade: B) at Harvard"
+
+// Mixed approach - parameter properties with additional properties
+class Course {
+    private enrolledStudents: Student[] = []; // Additional property declared separately
+    
+    constructor(
+        public courseName: string,
+        public courseCode: string,
+        private maxStudents: number = 30  // Parameter property with default value
+    ) {}
+    
+    enrollStudent(student: Student): boolean {
+        if (this.enrolledStudents.length < this.maxStudents) {
+            this.enrolledStudents.push(student);
+            return true;
+        }
+        return false;
+    }
+    
+    getCourseInfo(): string {
+        return `${this.courseCode}: ${this.courseName} (${this.enrolledStudents.length}/${this.maxStudents})`;
+    }
+}
+
+const course = new Course("TypeScript Fundamentals", "TS101", 25);
+course.enrollStudent(student1);
+course.enrollStudent(student2);
+console.log(course.getCourseInfo());
+```
+
+**Key Points:**
+- Parameter properties reduce boilerplate code significantly
+- You can mix access modifiers, readonly, and optional modifiers
+- The constructor can still contain additional logic
+- You can combine parameter properties with traditional property declarations
+- Default values can be specified for parameter properties
+
+
