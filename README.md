@@ -712,3 +712,80 @@ TypeScript provides three access modifiers that control the visibility of class 
 - Accessible within the class and its subclasses
 - Not accessible from outside the class hierarchy
 - Useful for sharing functionality between parent and child classes while keeping it hidden from external code
+
+```typescript
+class BankAccount {
+    public accountNumber: string;      // Anyone can access
+    private balance: number;           // Only this class can access
+    protected bankName: string;        // This class and subclasses can access
+    private transactionHistory: string[] = []; // Private array
+    
+    constructor(accountNumber: string, initialBalance: number, bankName: string) {
+        this.accountNumber = accountNumber;  // Public - OK to access anywhere
+        this.balance = initialBalance;       // Private - only accessible here
+        this.bankName = bankName;           // Protected - accessible in subclasses too
+    }
+    
+    // Public method - anyone can call this
+    public deposit(amount: number): void {
+        if (amount > 0) {
+            this.balance += amount;  // Can access private property within the class
+            this.recordTransaction(`Deposited $${amount}`);
+        }
+    }
+    
+    // Public method for withdrawal
+    public withdraw(amount: number): boolean {
+        if (amount > 0 && amount <= this.balance) {
+            this.balance -= amount;
+            this.recordTransaction(`Withdrew $${amount}`);
+            return true;
+        }
+        return false;
+    }
+    
+    // Private method - only this class can call it
+    private recordTransaction(transaction: string): void {
+        const timestamp = new Date().toISOString();
+        this.transactionHistory.push(`${timestamp}: ${transaction}`);
+    }
+    
+    // Private method for internal calculations
+    private calculateInterest(): number {
+        return this.balance * 0.02; // 2% interest
+    }
+    
+    // Protected method - subclasses can access this
+    protected getBalance(): number {
+        return this.balance;
+    }
+    
+    // Public method that uses private methods internally
+    public getBalanceWithInterest(): number {
+        const interest = this.calculateInterest(); // Can call private method
+        return this.balance + interest;
+    }
+    
+    // Public method to get account summary
+    public getAccountSummary(): string {
+        return `Account: ${this.accountNumber}, Balance: $${this.balance}, Bank: ${this.bankName}`;
+    }
+}
+
+// Usage examples
+const account = new BankAccount("123456789", 1000, "MyBank");
+
+// Public members - accessible
+console.log(account.accountNumber);  // ✓ "123456789"
+account.deposit(500);               // ✓ OK
+console.log(account.getAccountSummary()); // ✓ OK
+
+// Private members - not accessible from outside
+// console.log(account.balance);           // ✗ Error: Property 'balance' is private
+// account.recordTransaction("test");      // ✗ Error: Method is private
+// console.log(account.calculateInterest()); // ✗ Error: Method is private
+
+// Protected members - not accessible from outside (only in subclasses)
+// console.log(account.bankName);       // ✗ Error: Property 'bankName' is protected
+// console.log(account.getBalance());   // ✗ Error: Method is protected
+```
