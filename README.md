@@ -1215,3 +1215,52 @@ class ArrayUtils {
 let utils = new ArrayUtils()
 let numbers = utils.wrapInArray(1)
 ```
+
+## Generic Interfaces
+Say we want to get the result from the API `https://mywebsite.com/users` and `http://mywebsite.com/products`.
+This code will clear the confusion out.
+
+```typescript
+interface Result<T> {
+    data: T | null,
+    error: string | null
+}
+
+// Since the the function fetch will return a
+// return type of T, the fetch function will
+// also be generic
+function fetch<T>(url: string): Result<T> {
+    return { data: null, error: null}
+}
+
+interface User {
+    username: string
+}
+
+interface Product {
+    title: string
+}
+
+let userResult = fetch<User>('url');
+let productResult = fetch<Product>('url');
+```
+
+## Generic Constraints
+We can also define very specific types as generic
+
+```typescript
+function echo<T extends number | string>(value: T): T {
+    return value;
+}
+
+echo(10)
+```
+
+We can also pass a very specific type to the function
+```typescript
+function echo <T extends {name: string}>(value: T): T {
+    return value
+}
+
+echo({name: 'a'})
+```
